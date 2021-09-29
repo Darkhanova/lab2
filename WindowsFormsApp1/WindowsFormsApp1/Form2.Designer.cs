@@ -93,7 +93,7 @@
             this.Task.Name = "Task";
             this.Task.Size = new System.Drawing.Size(436, 20);
             this.Task.TabIndex = 6;
-            this.Task.Text = "Найти сумму двух минимальных чисел из трех заданных";
+            this.Task.Text = "Найти произведение двух минимальных чисел из трех заданных";
             // 
             // start1
             // 
