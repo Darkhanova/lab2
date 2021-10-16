@@ -52,6 +52,7 @@ namespace WindowsFormsApp1
             int A = Convert.ToInt32(a);
             int B = Convert.ToInt32(b);
             int C = Convert.ToInt32(c);
+            if (A!=B && A!=C && B!=C) //исправлена проверка на различность чисел
             if (A < B || A < C)
             {
                 if (B < C)
