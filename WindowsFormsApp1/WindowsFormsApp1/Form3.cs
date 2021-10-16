@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,28 @@ namespace WindowsFormsApp1
 
     public partial class forform : Form
     {
-
+        private string _path1 = @"C:\Users\ДНС\source\repos\WindowsFormsApp1\save4.txt";
+        private string _path2 = @"C:\Users\ДНС\source\repos\WindowsFormsApp1\save5.txt";
+        private StreamReader sr;
         private object masout_TextChanged;
 
         public forform()
         {
             InitializeComponent();
+            sr = new StreamReader(_path1);
+            if (File.Exists(_path1))
+            {
+                string temp = sr.ReadLine();
+                sr.Close();
+                length.Text = temp;
+            }
+            sr = new StreamReader(_path2);
+            if (File.Exists(_path1))
+            {
+                string temp = sr.ReadLine();
+                sr.Close();
+                resule.Text = temp;
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -60,7 +77,7 @@ namespace WindowsFormsApp1
             string[] sNums = resule.Text.Split(' ');
             if (length1 > sNums.Length || length1 < sNums.Length)
             {
-                MessageBox.Show("Длина массива не соответсвует введенному!");
+                MessageBox.Show("Длина массива не соответствует введенному!");
                 return;
             }
             
@@ -76,14 +93,25 @@ namespace WindowsFormsApp1
             int[] nums = new int[length1];
             if (length1 > sNums.Length || length1 < sNums.Length)
             {
-                MessageBox.Show("Длина массива не соответсвует введенному!");
+                MessageBox.Show("Длина массива не соответствует введенному!");
                 return;
             }
             for (int i = 0; i < length1; i++)
             {
                 nums[i] = int.Parse(sNums[i]);
             }
-           
+
+            for (int i = 0; i < length1; i++)
+            {
+                for (int j = 0; j < length1; j++)
+                {
+                    if (nums[i] == nums[j])
+                    {
+                        MessageBox.Show("Ошибка, присутствуют одинаковые числа!");
+                        return;
+                    }
+                }
+            }
             int min = 100;
             int max = -100;
             int min2 = 100;
@@ -104,8 +132,33 @@ namespace WindowsFormsApp1
                     if (nums[i] != max)
                         max2 = nums[i];
             }
-            MessageBox.Show("2 минимальных = " + min + " " + min2 + "\n 2 максимальных = " + max + " " + max2);
-            
+            label4.Text = Convert.ToString(max) + ", " + Convert.ToString(max2);
+            label5.Text = Convert.ToString(min) + ", " + Convert.ToString(min2);
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void length_TextChanged(object sender, EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(_path1);
+            sw.WriteLine(length.Text);
+            sw.Close();
+        }
+
+        private void resule_TextChanged(object sender, EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(_path2);
+            sw.WriteLine(resule.Text);
+            sw.Close();
+        }
+
+        private void forform_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
